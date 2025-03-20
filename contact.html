@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - EVP Parking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="https://media.istockphoto.com/id/1226908974/photo/intelligent-car-app-on-smart-phone-concept.jpg?s=1024x1024&w=is&k=20&c=mo57-QSPNkvQakbwojwhsSyH5bCUe6VV87GU2xUExsM=" alt="EVP Logo" class="logo">
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="signup.html"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                    <li><a href="Pricing.html"><i class="fas fa-money"></i> Pricing</a></li>
+                    <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    <li><a href="Reviews.html"><i class="fas fa-heart"></i> Reviews</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="contact">
+        <div class="container">
+            <h1><i class="fas fa-life-ring"></i> Contact Us</h1>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-user"></i> Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message"><i class="fas fa-comment"></i> Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="contact-response"></div>
+            <p>Or reach us at: <a href="mailto:support@evpparking.com">support@evpparking.com</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 EVP Parking. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dynamic navigation for login/logout
+            const user = localStorage.getItem('loggedInUser');
+            const navLinks = document.getElementById('nav-links');
+            if (user) {
+                navLinks.innerHTML += `<li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>`;
+                document.getElementById('logout').addEventListener('click', () => {
+                    localStorage.removeItem('loggedInUser');
+                    window.location.reload();
+                });
+            }
+
+            // Contact form handling
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                if (!name || !email || !message) {
+                    alert('Please fill in all fields!');
+                    return;
+                }
+
+                // Store message in localStorage (simulating submission)
+                let messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+                messages.push({ name, email, message, timestamp: new Date().toISOString() });
+                localStorage.setItem('contactMessages', JSON.stringify(messages));
+
+                // Show response
+                const responseDiv = document.getElementById('contact-response');
+                responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent successfully.</p>`;
+                responseDiv.style.color = '#28a745';
+
+                // Reset form
+                contactForm.reset();
+
+                // Clear response after 5 seconds
+                setTimeout(() => {
+                    responseDiv.innerHTML = '';
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

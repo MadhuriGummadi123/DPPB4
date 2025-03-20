@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - EVP Parking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="https://media.istockphoto.com/id/1226908974/photo/intelligent-car-app-on-smart-phone-concept.jpg?s=1024x1024&w=is&k=20&c=mo57-QSPNkvQakbwojwhsSyH5bCUe6VV87GU2xUExsM=" alt="EVP Logo" class="logo">
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="Contact.html"><i class="fas fa-life-ring"></i> Contact</a></li>
+                    <li><a href="Pricing.html"><i class="fas fa-money"></i> Pricing</a></li>
+                    <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    <li><a href="Reviews.html"><i class="fas fa-heart"></i> Reviews</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="signup">
+        <div class="container">
+            <h1><i class="fas fa-user-plus"></i> Sign Up</h1>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="full-name"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="full-name" name="full-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password"><i class="fas fa-lock"></i> Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 EVP Parking. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signupForm = document.getElementById('signup-form');
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const fullName = document.getElementById('full-name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+
+                let users = JSON.parse(localStorage.getItem('users') || '{}');
+                if (users[email]) {
+                    alert('User already exists!');
+                    return;
+                }
+
+                users[email] = { fullName, password };
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Sign up successful! Please login.');
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+</html>

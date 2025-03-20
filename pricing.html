@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - EVP Parking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="https://media.istockphoto.com/id/1226908974/photo/intelligent-car-app-on-smart-phone-concept.jpg?s=1024x1024&w=is&k=20&c=mo57-QSPNkvQakbwojwhsSyH5bCUe6VV87GU2xUExsM=" alt="EVP Logo" class="logo">
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="Contact.html"><i class="fas fa-life-ring"></i> Contact</a></li>
+                    <li><a href="signup.html"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                    <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    <li><a href="Reviews.html"><i class="fas fa-heart"></i> Reviews</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="pricing">
+        <div class="container">
+            <h1><i class="fas fa-money"></i> Pricing Plans</h1>
+            <div class="pricing-grid">
+                <div class="plan">
+                    <h2>Basic</h2>
+                    <p class="price">$5<span>/hour</span></p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Standard parking spots</li>
+                        <li><i class="fas fa-check"></i> 24/7 support</li>
+                        <li><i class="fas fa-times"></i> Priority booking</li>
+                    </ul>
+                    <button class="get-started">Get Started</button>
+                </div>
+                <div class="plan">
+                    <h2>Premium</h2>
+                    <p class="price">$8<span>/hour</span></p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Premium parking spots</li>
+                        <li><i class="fas fa-check"></i> 24/7 support</li>
+                        <li><i class="fas fa-check"></i> Priority booking</li>
+                    </ul>
+                    <button class="get-started">Get Started</button>
+                </div>
+                <div class="plan">
+                    <h2>Monthly</h2>
+                    <p class="price">$99<span>/month</span></p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Unlimited parking</li>
+                        <li><i class="fas fa-check"></i> 24/7 support</li>
+                        <li><i class="fas fa-check"></i> Priority booking</li>
+                    </ul>
+                    <button class="get-started">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 EVP Parking. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = localStorage.getItem('loggedInUser');
+            const navLinks = document.getElementById('nav-links');
+            if (user) {
+                navLinks.innerHTML += `<li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>`;
+                document.getElementById('logout').addEventListener('click', () => {
+                    localStorage.removeItem('loggedInUser');
+                    window.location.reload();
+                });
+            }
+
+            document.querySelectorAll('.get-started').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (!user) {
+                        alert('Please login or sign up to get started!');
+                        window.location.href = 'login.html';
+                    } else {
+                        alert('Plan selected! (Implementation pending)');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
