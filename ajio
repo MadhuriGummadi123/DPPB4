@@ -1,0 +1,50 @@
+ajio
+package project2;
+
+import java.util.Iterator;
+import java.util.Set;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
+
+public class Week2 {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.ajio.com/");
+
+        // Wait for the 'Sign In / Join AJIO' link to be clickable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement ajioLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[normalize-space()='Sign In / Join AJIO']")));
+        ajioLink.click();
+
+        // Wait for the Facebook login button to be clickable
+        WebElement facebookBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[normalize-space()='Facebook']")));
+        facebookBtn.click();
+
+        // Get window handles and switch to the child window (Facebook login)
+        Set<String> windowHandles = driver.getWindowHandles();
+        Iterator<String> iterator = windowHandles.iterator();
+        String parentWindow = iterator.next();  // Parent window handle
+        String childWindow = iterator.next();   // Child window handle
+
+        // Switch to the Facebook login window
+        driver.switchTo().window(childWindow);
+
+        // Enter credentials and log in
+        WebElement emailOrMobileNo = driver.findElement(By.xpath("//input[@id='email']"));
+        emailOrMobileNo.sendKeys("bhumi27@gmail.com");
+        WebElement pwd = driver.findElement(By.xpath("//input[@id='pass']"));
+        pwd.sendKeys("@123");
+
+        // Click the login button
+        WebElement loginBtn = driver.findElement(By.xpath("//input[@value='Log In']"));
+        loginBtn.click();
+    }
+}
